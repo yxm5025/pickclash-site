@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "YNV499G6A7.com.meanfield.pickclash",
+        "paths": ["/join/*"]
+      }
+    ]
+  }
+}
