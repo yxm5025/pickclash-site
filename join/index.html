@@ -6,7 +6,7 @@
 <title>PickClash · Pod invite</title>
 <meta name="description" content="You've been invited to a PickClash pod. Make picks with your friends. Loser takes the forfeit.">
 <style>
-  :root { --page:#0E0E13; --card:#1C1C26; --green:#32D74B; --on-green:#06130A; --yellow:#FFD60A; --grey:#98989F; --light:#C8C8CF; --text:#F2F2F7; --dim:#6E6E78; }
+  :root { --page:#0E0E13; --card:#1C1C26; --green:#32D74B; --on-green:#06130A; --yellow:#FFD60A; --gold:#E8D898; --grey:#98989F; --light:#C8C8CF; --text:#F2F2F7; --dim:#6E6E78; }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--page); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   main { max-width:420px; margin:0 auto; padding:36px 20px 40px; display:flex; flex-direction:column; gap:14px; }
@@ -15,11 +15,11 @@
   hr { border:0; height:1px; background:rgba(255,255,255,0.08); margin:8px 0 2px; }
   .invite { font-size:20px; font-weight:800; line-height:1.3; }
   .meta { font-size:13px; color:var(--grey); }
-  .strip { background:rgba(255,214,10,0.07); border-radius:8px; padding:8px 10px; display:flex; flex-direction:column; gap:3px; }
-  .strip .row { display:flex; align-items:center; gap:8px; }
-  .strip .label { flex-grow:1; font-size:10px; font-weight:700; letter-spacing:1px; color:var(--green); }
-  .strip .tag { font-size:10px; font-weight:700; color:var(--grey); }
-  .strip .rule { font-size:13px; color:var(--yellow); }
+  /* the pod card's forfeit strip (11/4): gold hairline, gold eyebrow, the rule in ink */
+  .strip { border-left:2px solid var(--gold); padding:2px 0 2px 12px; display:flex; flex-direction:column; gap:4px; }
+  .strip .eyebrow { font-size:11px; font-weight:700; letter-spacing:1.2px; color:var(--gold); }
+  .strip .eyebrow .tag { color:var(--dim); }
+  .strip .rule { font-size:17px; font-weight:600; color:var(--text); line-height:1.3; }
   .btn { display:block; text-align:center; text-decoration:none; font-size:15px; font-weight:700; padding:14px; border-radius:12px; cursor:pointer; border:0; width:100%; }
   .btn-primary { background:var(--green); color:var(--on-green); }
   .btn-light { background:var(--text); color:var(--page); }
@@ -27,8 +27,9 @@
   .hint { font-size:13px; color:var(--grey); line-height:1.5; text-align:center; }
   .hint b { color:var(--text); font-family:ui-monospace,Menlo,monospace; letter-spacing:1px; }
   .toast { font-size:12px; color:var(--green); text-align:center; min-height:16px; }
-  footer { margin-top:18px; font-size:11px; color:var(--dim); text-align:center; line-height:1.6; }
-  footer a { color:var(--dim); }
+  footer { margin-top:18px; font-size:12px; text-align:center; line-height:1.6; }
+  footer a { color:var(--green); text-decoration:underline; }
+  footer .dot { color:var(--dim); }
 </style>
 </head>
 <body>
@@ -43,7 +44,7 @@
     <div class="meta" id="meta">&nbsp;</div>
   </div>
   <div class="strip" id="strip" hidden>
-    <div class="row"><div class="label">THIS WEEK'S FORFEIT</div><div class="tag" id="tag">THIS WEEK</div></div>
+    <div class="eyebrow">THIS WEEK'S FORFEIT<span class="tag" id="tag"></span></div>
     <div class="rule" id="rule"></div>
   </div>
   <button class="btn btn-primary" id="get">Get PickClash</button>
@@ -52,7 +53,7 @@
   <div class="cap">Already installed</div>
   <div class="toast" id="toast"></div>
   <div class="hint" id="hint">In the app, follow the prompt or enter invite code <b id="code"></b>.</div>
-  <footer>Free to play · Virtual coins only · No real money<br><a href="https://meanfieldllc.com/pickclash/terms">Terms</a> · <a href="https://meanfieldllc.com/pickclash/privacy">Privacy</a></footer>
+  <footer><a href="https://meanfieldllc.com/pickclash/privacy">Privacy Policy</a> <span class="dot">·</span> <a href="https://meanfieldllc.com/pickclash/terms">Terms and Conditions</a></footer>
 </main>
 <script>
 (function () {
@@ -83,7 +84,12 @@
         var meta = [members(p.member_count)]; if (p.league) meta.push(leagueName(p.league));
         document.getElementById("meta").textContent = meta.join(" · ");
         document.getElementById("hint").innerHTML = "In the app, follow the prompt to join <b style=\"font-family:inherit;letter-spacing:0\">" + p.pod_name.replace(/</g, "&lt;") + "</b>, or enter invite code <b>" + code + "</b>.";
-        if (p.rule) { document.getElementById("rule").textContent = p.rule; document.getElementById("strip").hidden = false; }
+        if (p.rule) {
+          document.getElementById("rule").textContent = p.rule;
+          var end = p.window_end ? new Date(p.window_end) : null;
+          if (end && !isNaN(end)) document.getElementById("tag").textContent = " · SETTLES " + end.toLocaleDateString("en-US", {month: "short", day: "numeric"}).toUpperCase();
+          document.getElementById("strip").hidden = false;
+        }
       }).catch(function () {});
   }
 
