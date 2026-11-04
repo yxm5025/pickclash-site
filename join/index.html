@@ -22,7 +22,8 @@
   .strip .rule { font-size:13px; color:var(--yellow); }
   .btn { display:block; text-align:center; text-decoration:none; font-size:15px; font-weight:700; padding:14px; border-radius:12px; cursor:pointer; border:0; width:100%; }
   .btn-primary { background:var(--green); color:var(--on-green); }
-  .btn-framed { background:transparent; border:1px solid rgba(255,255,255,0.18); color:var(--light); font-size:13px; padding:11px; border-radius:10px; }
+  .btn-light { background:var(--text); color:var(--page); }
+  .cap { font-size:12px; color:var(--grey); text-align:center; margin-top:-8px; }
   .hint { font-size:13px; color:var(--grey); line-height:1.5; text-align:center; }
   .hint b { color:var(--text); font-family:ui-monospace,Menlo,monospace; letter-spacing:1px; }
   .toast { font-size:12px; color:var(--green); text-align:center; min-height:16px; }
@@ -46,9 +47,11 @@
     <div class="rule" id="rule"></div>
   </div>
   <button class="btn btn-primary" id="get">Get PickClash</button>
+  <div class="cap">Don’t have it yet</div>
+  <a class="btn btn-light" id="open" href="#">Open PickClash</a>
+  <div class="cap">Already installed</div>
   <div class="toast" id="toast"></div>
-  <div class="hint" id="hint">Then open the app and join the pod — follow the prompt, or enter invite code <b id="code"></b>.</div>
-  <a class="btn btn-framed" id="open" href="#">Already have the app? Open PickClash</a>
+  <div class="hint" id="hint">In the app, follow the prompt or enter invite code <b id="code"></b>.</div>
   <footer>Free to play · Virtual coins only · No real money<br><a href="https://meanfieldllc.com/pickclash/terms">Terms</a> · <a href="https://meanfieldllc.com/pickclash/privacy">Privacy</a></footer>
 </main>
 <script>
@@ -79,7 +82,7 @@
         document.getElementById("invite").textContent = (p.invited_by ? p.invited_by + " invited you to " : "You’re invited to ") + p.pod_name;
         var meta = [members(p.member_count)]; if (p.league) meta.push(leagueName(p.league));
         document.getElementById("meta").textContent = meta.join(" · ");
-        document.getElementById("hint").innerHTML = "Then open the app and join <b style=\"font-family:inherit;letter-spacing:0\">" + p.pod_name.replace(/</g, "&lt;") + "</b> — follow the prompt, or enter invite code <b>" + code + "</b>.";
+        document.getElementById("hint").innerHTML = "In the app, follow the prompt to join <b style=\"font-family:inherit;letter-spacing:0\">" + p.pod_name.replace(/</g, "&lt;") + "</b>, or enter invite code <b>" + code + "</b>.";
         if (p.rule) { document.getElementById("rule").textContent = p.rule; document.getElementById("strip").hidden = false; }
       }).catch(function () {});
   }
