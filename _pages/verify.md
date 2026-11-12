@@ -3,6 +3,7 @@ layout: page
 title: Check a tracker
 include_in_header: false
 permalink: /verify/
+published: false   # 11/12: off the site (Yunke). Nothing links here any more; delete this line to bring the page back.
 ---
 
 # Check a PickClash tracker yourself
