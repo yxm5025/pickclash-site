@@ -2,6 +2,7 @@
 layout: page
 title: What's New
 include_in_header: true
+published: false   # 11/12: off the site with the old home page (it said the app was coming soon). Nothing links here.
 ---
 
 # Changelog
