@@ -113,4 +113,4 @@ readable season record is written only for a picker who is Verified and has publ
 A picker can take a tracker offline at any time: the page closes and no new entries are written, but
 entries already on the ledger stay there.
 
-Questions or a mismatch: pickclash@gmail.com.
+Questions or a mismatch: info@meanfieldllc.com.

@@ -107,4 +107,4 @@ We reserve the right, at Our sole discretion, to modify or replace these Terms a
 
 If you have any questions about these Terms and Conditions, You can contact us:
 
-- By email: pickclash@gmail.com
+- By email: info@meanfieldllc.com
